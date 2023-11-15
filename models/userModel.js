@@ -6,6 +6,9 @@ const userSchema = new mongoose.Schema({
        type:String, 
         
     },
+    photo:{
+        type:String,  
+     },
     CompanyName:{
         type: String,
         
