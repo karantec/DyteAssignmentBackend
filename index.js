@@ -1,9 +1,11 @@
 import express from "express";
+import http from "http";
 import mongoose from "mongoose";
+import { Server } from "socket.io";
 import bodyParser from "body-parser"
 import dotenv from "dotenv";
 import cors from "cors";
-import route from "./routes/userRoute.js";
+import route from "./routes/LogRoute.js";
 
 const app = express();
 app.use(bodyParser.json());
@@ -13,6 +15,10 @@ dotenv.config();
 
 const PORT = process.env.PORT || 7000;
 const URL = process.env.MONGOURL;
+const server = http.createServer(app);
+const io = new Server(server);
+
+
 
 mongoose.connect(URL).then(()=>{
 
@@ -24,5 +30,12 @@ mongoose.connect(URL).then(()=>{
 
 }).catch(error => console.log(error));
 
-
+io.on('connection', (socket) => {
+    console.log('A client connected');
+  
+    // Handle disconnection
+    socket.on('disconnect', () => {
+      console.log('A client disconnected');
+    });
+  });
 app.use("/api", route);
