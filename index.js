@@ -16,7 +16,7 @@ dotenv.config();
 app.use(handleErrors);
 
 
-const PORT = process.env.PORT || 7000;
+const PORT = process.env.PORT || 5000;
 const URL = process.env.MONGOURL;
 const server = http.createServer(app);
 const io = new Server(server);
